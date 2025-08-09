@@ -1,0 +1,8 @@
+/* StarRating.css */
+.RatingStar {
+  display: flex;
+  justify-content: center;  /* Centre horizontalement les étoiles */
+  margin: 10px 0; /* Optionnel : espace autour */
+  gap: 5px;
+  
+}

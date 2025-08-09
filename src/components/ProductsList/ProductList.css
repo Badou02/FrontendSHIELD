@@ -1,0 +1,23 @@
+.product-list {
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.product-scroller {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem 0;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+}
+
+.product-scroller::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.product-card {
+  min-width: 200px;
+  flex: 0 0 auto;
+}

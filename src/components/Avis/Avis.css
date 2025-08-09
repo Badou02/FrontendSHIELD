@@ -1,0 +1,69 @@
+/* src/components/Testimonials/Testimonials.css */
+
+.testimonials-section {
+  max-width: 1300px; /* largeur maximale, à ajuster selon ton design */
+  margin: 0 auto; /* centre horizontalement */
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.testimonials-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.testimonials-title span {
+  color: #0056b3;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.testimonial-card {
+  background: #fff;
+  padding: 25px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+}
+
+.quote-icon {
+  font-size: 2rem;
+  color: #0056b3;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.testimonial-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 20px auto 15px;
+  border: 2px solid #0056b3;
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: bold;
+  color: #333;
+}

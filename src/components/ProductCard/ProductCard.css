@@ -1,0 +1,146 @@
+.product-details {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.product-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 60px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.product-image {
+  max-width: 450px;
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 280px;
+}
+
+.product-info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.product-info .price {
+  font-size: 1.3rem;
+  color: #198754;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 10px;
+  color: #555;
+}
+
+.options {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options label {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.options select,
+.options input[type="number"] {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 150px;
+}
+
+.add-btn {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Produits similaires */
+.similar-products {
+  margin-top: 50px;
+}
+
+.similar-products h3 {
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+.similar-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.similar-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.similar-card:hover {
+  transform: translateY(-5px);
+}
+
+.similar-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.similar-card .name {
+  font-weight: 600;
+  margin: 10px 0 5px;
+}
+
+.similar-card .price {
+  color: #198754;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-similar-btn {
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-similar-btn:hover {
+  background-color: #136a43;
+}
+.product-link{
+  text-decoration: none;
+}
