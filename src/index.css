@@ -220,6 +220,12 @@ body {
 }
 
 @media (max-width: 480px) {
+  .PresentationProduits video {
+    max-width: 100%;
+    height: auto;
+    padding: 0 5px;
+  }
+}
   .mb-4 {
     font-size: 1.5rem;
   }
@@ -242,7 +248,7 @@ body {
     padding: 8px 12px;
     font-size: 0.9rem;
   }
-}
+
 
 /* Bouton Voir tous - basé sur votre see-all-link */
 .see-all-link {
@@ -354,7 +360,6 @@ body {
   padding: 0 15px;
 }
 
-
 .imageFace video {
   height: 410px;
   border-radius: 12px;
@@ -370,7 +375,6 @@ body {
  flex: 1 1 48%;
  box-sizing: border-box;
 }
-
 
 
 /* Galerie Slider - basé sur votre slide */
@@ -394,6 +398,12 @@ body {
 
 /* Responsive pour les sections média */
 @media (max-width: 768px) {
+  .PresentationProduits video {
+    max-width: 100%;
+    height: auto;
+    padding: 0 10px;
+  }
+}
   .container {
     padding: 0 10px;
   }
@@ -425,7 +435,7 @@ body {
   .slide img {
     height: 280px;
   }
-}
+
 
 @media (max-width: 480px) {
   .container {
@@ -563,9 +573,11 @@ body {
   }
 }
 
-.PresentationProduits ,video {
-  margin: 0 auto;   /* centre horizontalement */
-  padding: 0 1rem;  /* petit espace à gauche/droite */
-  width: 1500px;   
-  height: 600px;
+.PresentationProduits video {
+  width: 100%;
+  max-width: 900px; /* limite raisonnable */
+  height: auto;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: block;
 }

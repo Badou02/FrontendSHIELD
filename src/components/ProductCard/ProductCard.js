@@ -19,7 +19,7 @@ const ProductCard = ({ product, onAddToCart, onRate }) => {
         <p className="product-price">{product.price.toLocaleString()} FCFA</p>
         
       </Link>
-<StarRating rating={product.rating} onRate={(value) => onRate(product.id, value)} />
+<StarRating rating={product.rating} onRate={(value) => onRate(product._id, value)} />
       <button className="add-to-cart" onClick={handleAddToCart}>
         Ajouter au panier
       </button>
