@@ -10,7 +10,9 @@ import Imageface from '../images/Imageface.jpeg';
 import SlideOne from '../images/SlideOne.jpeg';
 import SlideTWO from '../images/exemplephotoONE.jpeg';
 import SlideFOUR from '../images/exemplephotofour.jpeg';
+import Slidethree from '../images/exemplephotothree.jpeg';
 import video from '../images/video_french.mp4';
+import videoOne from '../images/PrésentationdesProduitsShield..mp4';
 import API from '../../api';
 
 const Home = ({ addToCart }) => { 
@@ -97,13 +99,25 @@ const Home = ({ addToCart }) => {
       <div className='slide' data-aos="fade-up">
         <img src={SlideOne} alt='face' />
         <img src={SlideTWO} alt='face' />
-        <img src={SlideOne} alt='face' />
+        <img src={Slidethree} alt='face' />
         <img src={SlideFOUR} alt='face' />
         
 
       </div>
       
       <ContactForm/>
+
+      <div className='PresentationProduits'>
+         <video 
+          ref={videoRef}
+          src={videoOne} 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+        />
+      </div>
+
       <Localisation />
     </div>
   );

@@ -387,7 +387,7 @@ body {
 .slide img {
   width: 100%;
   max-width: 350px;
-  height: 315px;
+  height: 320px;
   border-radius: 12px;
   object-fit: cover;
 }
@@ -563,3 +563,9 @@ body {
   }
 }
 
+.PresentationProduits ,video {
+  margin: 0 auto;   /* centre horizontalement */
+  padding: 0 1rem;  /* petit espace à gauche/droite */
+  width: 1500px;   
+  height: 600px;
+}
