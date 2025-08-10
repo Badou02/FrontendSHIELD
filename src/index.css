@@ -1,7 +1,6 @@
-/* Home.css */
+/* Home.css - Corrections responsivité uniquement */
 
-/* Base styles - basé sur votre stylisation */
-/* Pour forcer pleine largeur */
+/* Base styles - identiques aux vôtres */
 .main-content,
 .section,
 .gallery-grid,
@@ -13,7 +12,6 @@
   padding-right: 0;
 }
 
-/* Si tu utilises Bootstrap, remplace container par container-fluid */
 .container {
   width: 100% !important;
   max-width: 100% !important;
@@ -21,7 +19,6 @@
   padding-right: 0 !important;
   margin: 0 !important;
 }
-
 
 body {
   margin: 0;
@@ -42,7 +39,7 @@ body {
   margin-top: 2rem;
 }
 
-/* Section Hero - basé sur votre about-section */
+/* Section Hero - garde votre style exact */
 .about-section { 
   position: relative;
   background-image: url('./components/images/arrierePlanShield.png');    
@@ -75,46 +72,7 @@ body {
   line-height: 1.6;
 }
 
-/* Responsive pour la section hero */
-@media (max-width: 768px) {
-  .about-section {
-    height: 300px;
-    background-attachment: scroll;
-  }
-  
-  .about-section h1 {
-    font-size: 2rem;
-  }
-  
-  .about-section p {
-    font-size: 1rem;
-  }
-  
-  .about-section .overlay {
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-section {
-    height: 250px;
-  }
-  
-  .about-section h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
-  }
-  
-  .about-section p {
-    font-size: 0.9rem;
-  }
-  
-  .about-section .overlay {
-    padding: 1rem;
-  }
-}
-
-/* Section Produits - basé sur votre home-products-container */
+/* Titre section - garde votre style exact */
 .mb-4 {
   margin: 3rem auto 2rem;
   padding: 0 15px;
@@ -137,10 +95,12 @@ body {
   background: linear-gradient(90deg, #2196f3, #1abc9c);
   border-radius: 2px;
 }
+
+/* Produits - CORRECTION MAJEURE ici */
 .home-products-container {
-    max-width: 1300px; /* largeur maximale, à ajuster selon ton design */
-  margin: 0 auto; /* centre horizontalement */
-  padding: 0 1rem; /* petit espace à gauche/droite */
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
@@ -156,6 +116,8 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   text-align: center;
   transition: transform 0.3s ease;
+  /* AJOUT pour centrer les cartes */
+  justify-self: center;
 }
 
 .product-card:hover {
@@ -201,56 +163,7 @@ body {
   background-color: #5772ec;
 }
 
-/* Responsive pour les produits */
-@media (max-width: 768px) {
-  .mb-4 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .home-products-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px 10px;
-  }
-  
-  .product-card {
-    max-width: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .PresentationProduits video {
-    max-width: 100%;
-    height: auto;
-    padding: 0 5px;
-  }
-}
-  .mb-4 {
-    font-size: 1.5rem;
-  }
-  
-  .home-products-container {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    padding: 15px 5px;
-  }
-  
-  .product-card {
-    padding: 12px;
-  }
-  
-  .product-card h5 {
-    font-size: 1rem;
-  }
-  
-  .product-card button {
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
-
-
-/* Bouton Voir tous - basé sur votre see-all-link */
+/* Lien voir tous - garde votre style */
 .see-all-link {
   display: flex;
   margin-top: 20px;
@@ -268,7 +181,7 @@ body {
   text-decoration: underline;
 }
 
-/* Section Message - basé sur votre modern-message */
+/* Message moderne - garde votre style exact */
 .modern-message {
   display: flex;
   align-items: center;
@@ -301,7 +214,6 @@ body {
   line-height: 1.6;
 }
 
-/* Animation d'entrée */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -313,8 +225,122 @@ body {
   }
 }
 
-/* Responsive pour le message */
+/* Section imageFace - CORRECTION MAJEURE */
+.imageFace {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  flex-wrap: nowrap;
+  padding: 0 15px;
+  max-width: 1300px; /* AJOUT pour limiter la largeur */
+}
+
+.imageFace video {
+  height: 410px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex: 1 1 48%;
+  box-sizing: border-box;
+  /* SUPPRESSION de width: 1000px; */
+  max-width: 100%;
+}
+
+.imageFace img {
+  height: 410px;
+  border-radius: 12px;
+  flex: 1 1 48%;
+  box-sizing: border-box;
+  object-fit: cover;
+  max-width: 100%;
+}
+
+/* Section slide - garde votre style */
+.slide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 15px;
+  justify-items: center;
+  max-width: 1300px; /* AJOUT */
+}
+
+.slide img {
+  width: 100%;
+  max-width: 350px;
+  height: 320px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Section PresentationProduits - CORRECTION MAJEURE */
+.PresentationProduits {
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 1300px; /* AJOUT */
+  display: flex;
+  justify-content: center;
+}
+
+.PresentationProduits video {
+  /* SUPPRESSION de width: 1500px; height: 600px; */
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 600px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* MEDIA QUERIES - Responsivité mobile/tablette */
 @media (max-width: 768px) {
+  body {
+    padding-top: 80px;
+  }
+  
+  .about-section {
+    height: 300px;
+    background-attachment: scroll;
+  }
+  
+  .about-section h1 {
+    font-size: 2rem;
+  }
+  
+  .about-section p {
+    font-size: 1rem;
+  }
+  
+  .about-section .overlay {
+    padding: 1.5rem;
+  }
+
+  .mb-4 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center; /* AJOUT pour mobile */
+  }
+  
+  .mb-4::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+  }
+  
+  .home-products-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 10px;
+  }
+  
+  .product-card {
+    max-width: none;
+  }
+
   .modern-message {
     flex-direction: column;
     text-align: center;
@@ -330,9 +356,79 @@ body {
   .modern-message h4 {
     font-size: 1.1rem;
   }
+  
+  .imageFace {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  
+  .imageFace img,
+  .imageFace video {
+    height: 300px;
+    width: 100%;
+  }
+  
+  .slide {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 0 10px;
+  }
+  
+  .slide img {
+    height: 280px;
+  }
+
+  .PresentationProduits video {
+    max-height: 400px;
+  }
 }
 
 @media (max-width: 480px) {
+  body {
+    padding-top: 60px;
+  }
+  
+  .about-section {
+    height: 250px;
+  }
+  
+  .about-section h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .about-section p {
+    font-size: 0.9rem;
+  }
+  
+  .about-section .overlay {
+    padding: 1rem;
+  }
+
+  .mb-4 {
+    font-size: 1.5rem;
+  }
+  
+  .home-products-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 15px 5px;
+  }
+  
+  .product-card {
+    padding: 12px;
+  }
+  
+  .product-card h5 {
+    font-size: 1rem;
+  }
+  
+  .product-card button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
   .modern-message {
     padding: 12px 15px;
     margin: 10px 5px;
@@ -346,115 +442,18 @@ body {
   .modern-message h4 {
     font-size: 1rem;
   }
-}
-
-/* Section Média - basé sur votre imageFace */
-.imageFace {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem auto;
-  flex-wrap: nowrap;
-  padding: 0 15px;
-}
-
-.imageFace video {
-  height: 410px;
-  border-radius: 12px;
-  object-fit: cover;
-  flex: 1 1 48%;
-  box-sizing: border-box;
-  width: 1000px;
-}
-
-.imageFace img {
- height: 410px;
- border-radius: 12px;
- flex: 1 1 48%;
- box-sizing: border-box;
-}
-
-
-/* Galerie Slider - basé sur votre slide */
-.slide {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 15px;
-  width: 100%;
-  margin: 2rem auto;
-  padding: 0 15px;
-  justify-items: center;
-}
-
-.slide img {
-  width: 100%;
-  max-width: 350px;
-  height: 320px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-/* Responsive pour les sections média */
-@media (max-width: 768px) {
-  .PresentationProduits video {
-    max-width: 100%;
-    height: auto;
-    padding: 0 10px;
-  }
-}
-  .container {
-    padding: 0 10px;
-  }
-  
-  body {
-    padding-top: 80px;
-  }
-  
-  .imageFace {
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 10px;
-  }
-  
-  .imageFace img,
-  .imageFace video {
-    min-width: auto;
-    max-width: 100%;
-    height: 300px;
-      width: 100%;
-  }
-  
-  .slide {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 10px;
-    padding: 0 10px;
-  }
-  
-  .slide img {
-    height: 280px;
-  }
-
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 5px;
-  }
-  
-  body {
-    padding-top: 60px;
-  }
   
   .imageFace {
     padding: 0 5px;
     margin: 1rem auto;
   }
+  
   .imageFace img,
   .imageFace video {
     height: 250px;
     width: 100%;
   }
+  
   .slide {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -464,6 +463,10 @@ body {
   .slide img {
     height: 250px;
     max-width: 100%;
+  }
+
+  .PresentationProduits video {
+    max-height: 300px;
   }
 }
 
@@ -480,7 +483,10 @@ body {
     max-width: 1400px;
     margin: 0 auto;
   }
-}gallery-overlay {
+}
+
+/* Reste de vos styles inchangés */
+.gallery-overlay {
   opacity: 1;
 }
 
@@ -493,7 +499,6 @@ body {
   font-size: 2rem;
 }
 
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -505,8 +510,12 @@ body {
   }
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
+ /* MASQUER complètement header-categories en mobile */
+  .header-categories {
+    display: none;
+  }
+
   .hero-section {
     min-height: 50vh;
   }
@@ -562,7 +571,6 @@ body {
   }
 }
 
-/* Mode sombre (optionnel) */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-light: #1f2937;
@@ -571,13 +579,4 @@ body {
     --text-secondary: #d1d5db;
     --border-color: #4b5563;
   }
-}
-
-.PresentationProduits video {
-  width: 100%;
-  max-width: 900px; /* limite raisonnable */
-  height: auto;
-  margin: 0 auto;
-  padding: 0 1rem;
-  display: block;
 }

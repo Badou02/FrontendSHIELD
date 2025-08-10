@@ -1,3 +1,6 @@
+/* src/components/ProductList/ProductList.css */
+
+/* Base styles - identiques aux vôtres */
 .product-list {
   overflow: hidden;
   padding: 1rem;
@@ -20,4 +23,96 @@
 .product-card {
   min-width: 200px;
   flex: 0 0 auto;
+}
+
+/* MEDIA QUERIES - RESPONSIVITÉ UNIQUEMENT */
+
+/* Tablette (768px - 1024px) */
+@media (max-width: 1024px) {
+  .product-list {
+    padding: 0.8rem;
+  }
+  
+  .product-card {
+    min-width: 180px;
+  }
+  
+  .product-scroller {
+    gap: 0.8rem;
+  }
+}
+
+/* Mobile large (481px - 768px) */
+@media (max-width: 768px) {
+  .product-list {
+    padding: 0.5rem;
+  }
+  
+  .product-card {
+    min-width: 160px;
+  }
+  
+  .product-scroller {
+    gap: 0.6rem;
+    padding: 0.8rem 0;
+  }
+}
+
+/* Mobile standard (376px - 480px) */
+@media (max-width: 480px) {
+  .product-list {
+    padding: 0.3rem;
+  }
+  
+  .product-card {
+    min-width: 140px;
+  }
+  
+  .product-scroller {
+    gap: 0.5rem;
+    padding: 0.6rem 0;
+  }
+}
+
+/* Mobile petit (321px - 375px) */
+@media (max-width: 375px) {
+  .product-list {
+    padding: 0.2rem;
+  }
+  
+  .product-card {
+    min-width: 130px;
+  }
+  
+  .product-scroller {
+    gap: 0.4rem;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Très petit mobile (≤320px) */
+@media (max-width: 320px) {
+  .product-list {
+    padding: 0.1rem;
+  }
+  
+  .product-card {
+    min-width: 120px;
+  }
+  
+  .product-scroller {
+    gap: 0.3rem;
+    padding: 0.4rem 0;
+  }
+}
+
+/* Mode paysage mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .product-card {
+    min-width: 140px;
+  }
+  
+  .product-scroller {
+    padding: 0.4rem 0;
+  }
 }
