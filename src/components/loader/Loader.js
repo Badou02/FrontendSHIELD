@@ -5,7 +5,7 @@ import './Loader.css';
 const Loader = () => {
   return (
     <div className="loader-wrapper">
-      <h1>Welcome !</h1>
+      <h1>Welcome To ShieldBaby Sénégal !</h1>
       <div className="loader"> </div>
     </div>
   );

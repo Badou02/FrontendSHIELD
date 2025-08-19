@@ -1,18 +1,20 @@
-// src/pages/AdminProducts.js
-
-import React, { useEffect, useState, useContext } from 'react';
-import API from '../../api.js';
-import { AuthContext } from '../context/AuthContext';
+// src/components/admin/AdminProducts.js
+import React, { useEffect, useState, useContext } from "react";
+import API from "../../api.js";
+import { AuthContext } from "../context/AuthContext";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState({
-    name: '',
-    price: '',
-    description: '',
-    stock: '',
-    category: '',
-    file: null,
+    name: "",
+    price: "",
+    description: "",
+    stock: "",
+    category: "",
+    files: [],
   });
   const [editingProductId, setEditingProductId] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -25,17 +27,17 @@ export default function AdminProducts() {
 
   const fetchProducts = async () => {
     try {
-      const res = await API.get('/products');
+      const res = await API.get("/products");
       setProducts(res.data);
     } catch (err) {
-      console.error('Erreur lors du chargement des produits', err);
+      console.error("Erreur lors du chargement des produits", err);
     }
   };
 
   const handleSave = async () => {
     try {
       if (!form.name || !form.price) {
-        alert('Nom et prix requis');
+        alert("Nom et prix requis");
         return;
       }
 
@@ -51,50 +53,49 @@ export default function AdminProducts() {
 
       if (editingProductId) {
         const res = await API.put(`/products/${editingProductId}`, productData, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
         savedProduct = res.data;
-        alert('Produit mis à jour');
+        alert("Produit mis à jour");
       } else {
-        const res = await API.post('/products', productData, {
-          headers: { Authorization: `Bearer ${token}` }
+        const res = await API.post("/products", productData, {
+          headers: { Authorization: `Bearer ${token}` },
         });
         savedProduct = res.data;
-        alert('Produit ajouté');
+        alert("Produit ajouté");
       }
 
-      // Upload image si sélectionnée
-      if (form.file && savedProduct?._id) {
+      // Upload des images si sélectionnées
+      if (form.files.length > 0 && savedProduct?._id) {
         const formData = new FormData();
-        formData.append('image', form.file);
+        for (let i = 0; i < form.files.length; i++) {
+          formData.append("images", form.files[i]);
+        }
 
         setUploading(true);
         await API.post(`/upload/${savedProduct._id}`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          }
+            "Content-Type": "multipart/form-data",
+          },
         });
         setUploading(false);
-        alert('Image uploadée avec succès');
+        alert("Images uploadées avec succès");
       }
 
       // Réinitialiser le formulaire
       setForm({
-        name: '',
-        price: '',
-        description: '',
-        stock: '',
-        category: '',
-        file: null,
+        name: "",
+        price: "",
+        description: "",
+        stock: "",
+        category: "",
+        files: [],
       });
       setEditingProductId(null);
       fetchProducts();
     } catch (err) {
-      console.error('Erreur lors de la sauvegarde :', err);
-      if (err.response) {
-        console.error('Détails serveur :', err.response.data);
-      }
+      console.error("Erreur lors de la sauvegarde :", err);
       alert(err.response?.data?.message || "Erreur lors de l'enregistrement");
       setUploading(false);
     }
@@ -102,29 +103,37 @@ export default function AdminProducts() {
 
   const handleEdit = (product) => {
     setForm({
-      name: product.name || '',
-      price: product.price || '',
-      description: product.description || '',
-      stock: product.stock || '',
-      category: product.category || '',
-      file: null
+      name: product.name || "",
+      price: product.price || "",
+      description: product.description || "",
+      stock: product.stock || "",
+      category: product.category || "",
+      files: [],
     });
     setEditingProductId(product._id);
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Supprimer ce produit ?')) {
+    if (window.confirm("Supprimer ce produit ?")) {
       try {
         await API.delete(`/products/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
-        alert('Produit supprimé');
+        alert("Produit supprimé");
         fetchProducts();
       } catch (err) {
         console.error(err);
-        alert('Erreur lors de la suppression');
+        alert("Erreur lors de la suppression");
       }
     }
+  };
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   return (
@@ -168,28 +177,41 @@ export default function AdminProducts() {
       <input
         type="file"
         accept="image/*"
-        onChange={(e) => setForm({ ...form, file: e.target.files[0] })}
+        multiple
+        onChange={(e) => setForm({ ...form, files: Array.from(e.target.files) })}
       />
 
-      {uploading && <p>Envoi de l’image en cours...</p>}
+      {uploading && <p>Envoi des images en cours...</p>}
 
       <button onClick={handleSave}>
-        {editingProductId ? 'Mettre à jour' : 'Ajouter'}
+        {editingProductId ? "Mettre à jour" : "Ajouter"}
       </button>
 
       <ul>
         {products.map((p) => (
           <li key={p._id}>
             <strong>{p.name}</strong> - {p.price} FCFA
-            {p.image ? (
-              <div>
-                <img src={p.image} alt={p.name} width="100" />
+            {p.images && p.images.length > 0 ? (
+              <div style={{ width: "200px", margin: "10px auto" }}>
+                <Slider {...sliderSettings}>
+                  {p.images.map((img, idx) => (
+                    <div key={idx}>
+                      <img
+                        src={img} // Cloudinary URL déjà complète
+                        alt={`${p.name}-${idx}`}
+                        style={{ width: "100%", borderRadius: "8px" }}
+                      />
+                    </div>
+                  ))}
+                </Slider>
               </div>
             ) : (
               <p>Aucune image</p>
             )}
             <p>{p.description}</p>
-            <p>Stock : {p.stock} | Catégorie : {p.category}</p>
+            <p>
+              Stock : {p.stock} | Catégorie : {p.category}
+            </p>
             <button onClick={() => handleEdit(p)}>Modifier</button>
             <button onClick={() => handleDelete(p._id)}>Supprimer</button>
           </li>

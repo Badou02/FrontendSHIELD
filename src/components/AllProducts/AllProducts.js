@@ -70,7 +70,7 @@ const AllProducts = ({ onAddToCart }) => {
             <div className="products-flex-container">
               {filtered.map((product) => (
                 <ProductCard
-                  key={product.id}
+                  key={product._id}
                   product={product}
                   onAddToCart={onAddToCart}
                   onRate={handleRate}
