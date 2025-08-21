@@ -23,7 +23,8 @@ import AdminOrders from './components/admin/AdminOrders';
 import AdminUsers from './components/admin/AdminUsers';
 import AdminMessages from './components/admin/AdminMessages';
 import AdminUpload from './components/pages/AdminUpload';
-
+import ScrollToTop from "./components/pages/ScrollToTop";
+import BackToTop from "./components/pages/BackToTop"
 
 const AppContent = () => {
   const location = useLocation();
@@ -60,6 +61,7 @@ const AppContent = () => {
 
   return (
     <>
+    <ScrollToTop />
       {!hideLayout && <Navbar cartCount={cart.length} setSearchTerm={setSearchTerm} />}
 
       <Routes>
@@ -80,7 +82,7 @@ const AppContent = () => {
         <Route path="orders" element={<AdminOrders />} />
         <Route path="users" element={<AdminUsers />} />
         <Route path="messages" element={<AdminMessages />} />
-
+          
       </Route>
         <Route path="/admin/upload" element={<AdminUpload />} />
       </Routes>
@@ -94,6 +96,8 @@ const App = () => (
   <AuthProvider>
     <Router>
       <AppContent />
+          <BackToTop />
+
     </Router>
   </AuthProvider>
 );

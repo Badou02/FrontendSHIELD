@@ -421,6 +421,7 @@ body {
   }
   
   .product-card h5 {
+    padding-bottom: 32px;
     font-size: 1rem;
   }
   

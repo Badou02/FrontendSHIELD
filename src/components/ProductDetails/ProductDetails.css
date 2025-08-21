@@ -49,3 +49,77 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 }
+
+/* Styles pour le carrousel d'images */
+.product-slider {
+    width: 100%; /* S'assure que le slider occupe la largeur de son conteneur */
+    max-width: 600px; /* Limite la largeur du carrousel */
+    margin: 0 auto;
+    /* Ajoutez d'autres styles si besoin pour le positionnement */
+}
+
+/* Conteneur pour chaque image du slider */
+.product-slider .slick-slide div {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles pour les flèches du slider (personnalisation) */
+.product-slider .slick-prev,
+.product-slider .slick-next {
+    z-index: 10;
+    color: #333; /* Couleur des flèches */
+}
+
+/* Styles des points de navigation (dots) */
+.product-slider .slick-dots {
+    bottom: -30px; /* Décale les points vers le bas */
+}
+
+/* src/components/ProductDetails/ProductDetails.css */
+
+/* Remplace la règle existante */
+/* .product-main img {
+  width: 350px;
+  border-radius: 10px;
+} */
+
+/* Style pour l'image dans le slider et l'image par défaut */
+.product-image {
+    max-width: 100%;
+    height: 400px; /* Exemple : définissez une hauteur fixe */
+    object-fit: contain; /* S'assure que l'image est entièrement visible */
+    border-radius: 10px;
+}
+
+/* Limite la largeur du conteneur d'image dans le slider */
+.slider-image-container {
+    width: 350px; /* Définit une largeur fixe pour le conteneur */
+    margin: 0 auto;
+}
+/* src/components/ProductDetails/ProductDetails.css */
+
+/* Styles des flèches */
+.product-details .slick-prev,
+.product-details .slick-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(0, 23, 73); /* Rend la flèche blanche */
+    border-radius: 50%;
+    font-size: 24px; /* Augmente la taille de la flèche */
+}
+
+/* Positionnement des flèches */
+.product-details .slick-prev {
+    left: 10px;
+}
+
+.product-details .slick-next {
+    right: 10px;
+}

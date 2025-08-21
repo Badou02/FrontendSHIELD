@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
-import "./ProductDetails.css";
 import StarRating from "../RatingStar/RatingStar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
+import "slick-carousel/slick/slick-theme.css"
+import "./ProductDetails.css";
 const ProductDetails = ({ addToCart }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -46,11 +45,26 @@ const ProductDetails = ({ addToCart }) => {
     localStorage.setItem(`rating-${product._id}`, value);
   };
 
-  // Fonction pour récupérer l'URL correcte
-  const getImageUrl = (img) => {
-    if (!img) return "/placeholder.png";
-    return typeof img === "string" ? img : img.url || "/placeholder.png";
-  };
+  // src/components/ProductDetails/ProductDetails.js
+
+const getImageUrl = (img) => {
+ // Récupère l'URL de l'image, que 'img' soit une chaîne ou un objet.
+ const url = typeof img === 'string' ? img : img?.url;
+
+// Si l'URL n'est pas valide ou est manquante, retourne l'image par défaut.
+if (!url) {
+ return "/placeholder.png";
+}
+
+// Si l'URL est complète (commence par http), la retourne directement.
+if (url.startsWith('http')) {
+ return url;
+}
+
+ // Si l'URL est relative (ex: /uploads/...), ajoute l'URL de base.
+ const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+ return `${baseURL}${url}`;
+};
 
   // Préparer la liste d’images pour le slider
   const imageList =
@@ -62,13 +76,9 @@ const ProductDetails = ({ addToCart }) => {
 
   // Paramètres du slider
   const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 400,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-  };
+    // ...
+    arrows: true, // Assurez-vous que cette ligne est présente et correcte
+};
 
   if (loading) return <p>Chargement du produit...</p>;
   if (error) return <p>{error}</p>;
@@ -80,11 +90,11 @@ const ProductDetails = ({ addToCart }) => {
         {/* Slider images */}
         {imageList.length > 0 ? (
           <Slider {...sliderSettings} className="product-slider">
-            {imageList.map((img, idx) => (
-              <div key={idx} className="slider-image-container">
+            {imageList.map((img, index) => (
+              <div key={index} className="slider-image-container">
                 <img
                   src={getImageUrl(img)}
-                  alt={`${product.name}-${idx}`}
+                  alt={`${product.name}-${index}`}
                   className="product-image"
                 />
               </div>

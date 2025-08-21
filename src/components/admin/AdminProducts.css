@@ -1,0 +1,77 @@
+.admin-products {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.admin-products h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-products input,
+.admin-products textarea,
+.admin-products button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+
+.admin-products button {
+  background-color: #337ab7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.admin-products button:hover {
+  background-color: #286090;
+}
+
+.admin-products ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.admin-products li {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-products li strong {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.admin-products li p {
+  margin: 5px 0;
+}
+
+.admin-products li .slick-slider {
+  width: 200px; /* You can adjust this width */
+  margin: 10px auto;
+}
+
+.admin-products li .slick-slider img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.admin-products li button {
+  width: auto;
+  padding: 8px 12px;
+  margin-right: 10px;
+}

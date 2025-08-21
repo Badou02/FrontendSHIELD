@@ -65,11 +65,11 @@ const AllProducts = ({ onAddToCart }) => {
         if (filtered.length === 0) return null;
 
         return (
-          <div key={category} className="category-section">
+          <div key={category} className="category-section" >
             <h3>{category}</h3>
             <div className="products-flex-container">
               {filtered.map((product) => (
-                <ProductCard
+                <ProductCard 
                   key={product._id}
                   product={product}
                   onAddToCart={onAddToCart}

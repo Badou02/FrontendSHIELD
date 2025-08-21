@@ -101,13 +101,14 @@ const handleAuth = () => {
           <li className="category-item">
             Biberons
             <ul className="sub-menu">
-              <li>Biberon Classique</li>
-              <li>Biberon Anti-colique</li>
+              <Link to='/allproducts'><li>Biberon Classique</li></Link>
+                <Link to='/allproducts'><li>Biberon Anti-colique</li></Link>
             </ul>
           </li>
           <li className="category-item">
             Tétines
             <ul className="sub-menu">
+              
               <li>Silicone</li>
               <li>Caoutchouc</li>
             </ul>
@@ -138,13 +139,6 @@ const handleAuth = () => {
             <ul className="sub-menu">
               <li>Chauffe-biberons</li>
               <li>Goupillons</li>
-            </ul>
-          </li>
-          <li className="category-item">
-            Hygiène bucco-dentaire
-            <ul className="sub-menu">
-              <li>Shield Toothpaste</li>
-              <li>Shield Toothbrushes</li>
             </ul>
           </li>
         </ul>

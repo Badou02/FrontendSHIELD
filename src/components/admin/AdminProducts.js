@@ -5,6 +5,8 @@ import { AuthContext } from "../context/AuthContext";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./AdminProducts.css"; 
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -197,9 +199,9 @@ export default function AdminProducts() {
                   {p.images.map((img, idx) => (
                     <div key={idx}>
                       <img
-                        src={img} // Cloudinary URL déjà complète
-                        alt={`${p.name}-${idx}`}
-                        style={{ width: "100%", borderRadius: "8px" }}
+                         src={img.startsWith("http") ? img : `${process.env.REACT_APP_API_URL}/uploads/${img}`}
+                         alt={`${p.name}-${idx}`}
+                         style={{ width: "100%", borderRadius: "8px" }}
                       />
                     </div>
                   ))}
