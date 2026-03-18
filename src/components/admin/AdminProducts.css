@@ -1,77 +1,430 @@
-.admin-products {
-  padding: 20px;
-  max-width: 900px;
+/* ===================================================
+   AdminProducts.css — Interface admin e-commerce
+   =================================================== */
+
+:root {
+  --ap-bg: #f4f5f7;
+  --ap-surface: #ffffff;
+  --ap-border: #e2e6ea;
+  --ap-primary: #1a56db;
+  --ap-primary-hover: #1446b8;
+  --ap-danger: #e53e3e;
+  --ap-danger-hover: #c53030;
+  --ap-edit: #2f855a;
+  --ap-edit-hover: #276749;
+  --ap-text: #1a202c;
+  --ap-muted: #718096;
+  --ap-radius: 10px;
+  --ap-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --ap-font: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Wrapper ── */
+.ap-wrapper {
+  font-family: var(--ap-font);
+  background: var(--ap-bg);
+  min-height: 100vh;
+  padding: 32px 24px;
+  max-width: 1100px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
+  color: var(--ap-text);
 }
 
-.admin-products h2 {
-  text-align: center;
-  margin-bottom: 20px;
+/* ── FORM PANEL ── */
+.ap-form-panel {
+  background: var(--ap-surface);
+  border: 1px solid var(--ap-border);
+  border-radius: var(--ap-radius);
+  box-shadow: var(--ap-shadow);
+  padding: 28px 32px;
+  margin-bottom: 40px;
 }
 
-.admin-products input,
-.admin-products textarea,
-.admin-products button {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box; /* Ensures padding doesn't affect total width */
+.ap-form-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 24px;
+  color: var(--ap-text);
 }
 
-.admin-products button {
-  background-color: #337ab7;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+.ap-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
-.admin-products button:hover {
-  background-color: #286090;
-}
-
-.admin-products ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-.admin-products li {
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.ap-field {
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
-.admin-products li strong {
-  font-size: 1.2em;
-  color: #333;
+.ap-field--full {
+  grid-column: 1 / -1;
 }
 
-.admin-products li p {
-  margin: 5px 0;
+.ap-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ap-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.admin-products li .slick-slider {
-  width: 200px; /* You can adjust this width */
-  margin: 10px auto;
+.ap-field input,
+.ap-field textarea {
+  padding: 10px 14px;
+  border: 1px solid var(--ap-border);
+  border-radius: 7px;
+  font-size: 0.95rem;
+  font-family: var(--ap-font);
+  background: #fafbfc;
+  color: var(--ap-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
 }
 
-.admin-products li .slick-slider img {
+.ap-field input:focus,
+.ap-field textarea:focus {
+  border-color: var(--ap-primary);
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.12);
+  background: #fff;
+}
+
+.ap-field textarea {
+  resize: vertical;
+}
+
+/* File input hidden, replaced by styled label */
+.ap-file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f0f4ff;
+  border: 1.5px dashed var(--ap-primary);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ap-primary);
+  transition: background 0.2s;
+}
+.ap-file-label:hover {
+  background: #e0eaff;
+}
+.ap-file-label input {
+  display: none;
+}
+
+/* Preview thumbnails */
+.ap-preview-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ap-preview-thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid var(--ap-border);
+}
+
+/* Upload indicator */
+.ap-uploading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--ap-primary);
+  font-weight: 500;
+}
+
+.ap-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c3d4f7;
+  border-top-color: var(--ap-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Form actions */
+.ap-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* ── BUTTONS ── */
+.ap-btn {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+  font-family: var(--ap-font);
+}
+.ap-btn:active {
+  transform: scale(0.97);
+}
+
+.ap-btn--primary {
+  background: var(--ap-primary);
+  color: #fff;
+}
+.ap-btn--primary:hover {
+  background: var(--ap-primary-hover);
+}
+
+.ap-btn--ghost {
+  background: transparent;
+  color: var(--ap-muted);
+  border: 1px solid var(--ap-border);
+}
+.ap-btn--ghost:hover {
+  background: #f0f0f0;
+}
+
+.ap-btn--edit {
+  background: #ebf8f1;
+  color: var(--ap-edit);
+  border: 1px solid #9ae6b4;
+}
+.ap-btn--edit:hover {
+  background: var(--ap-edit);
+  color: #fff;
+}
+
+.ap-btn--delete {
+  background: #fff5f5;
+  color: var(--ap-danger);
+  border: 1px solid #feb2b2;
+}
+.ap-btn--delete:hover {
+  background: var(--ap-danger);
+  color: #fff;
+}
+
+
+
+.ap-list-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ap-count {
+  background: var(--ap-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+.ap-empty {
+  color: var(--ap-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* ── PRODUCT GRID ── */
+.ap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ── PRODUCT CARD ── */
+.ap-card {
+  background: var(--ap-surface);
+  border: 1px solid var(--ap-border);
+  border-radius: var(--ap-radius);
+  box-shadow: var(--ap-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.ap-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Media zone */
+.ap-card-media {
+  position: relative;
+  height: 200px;
+  background: #f0f2f5;
+  overflow: hidden;
+}
+
+.ap-card-media .slick-slider,
+.ap-card-media .slick-list,
+.ap-card-media .slick-track {
+  height: 200px;
+}
+
+.ap-slide img,
+.ap-single-img {
   width: 100%;
-  height: auto;
+  height: 200px;
+  object-fit: cover;
   display: block;
-  border-radius: 8px;
 }
 
-.admin-products li button {
-  width: auto;
+.ap-no-img {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ap-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+/* Slick dots inside card */
+.ap-card-media .slick-dots {
+  bottom: 6px;
+}
+.ap-card-media .slick-dots li button::before {
+  color: #fff;
+  opacity: 0.8;
+  font-size: 7px;
+}
+.ap-card-media .slick-dots li.slick-active button::before {
+  color: #fff;
+  opacity: 1;
+}
+
+/* Slick arrows inside card */
+.ap-card-media .slick-prev,
+.ap-card-media .slick-next {
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+}
+.ap-card-media .slick-prev { left: 6px; }
+.ap-card-media .slick-next { right: 6px; }
+.ap-card-media .slick-prev::before,
+.ap-card-media .slick-next::before {
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Card body */
+.ap-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.ap-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.ap-card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ap-text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.ap-card-price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ap-primary);
+  white-space: nowrap;
+}
+
+.ap-card-desc {
+  font-size: 0.85rem;
+  color: var(--ap-muted);
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 2; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ap-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ap-badge {
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.ap-stock {
+  font-size: 0.8rem;
+  color: var(--ap-muted);
+}
+
+.ap-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.ap-card-actions .ap-btn {
+  flex: 1;
   padding: 8px 12px;
-  margin-right: 10px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .ap-wrapper {
+    padding: 20px 14px;
+  }
+
+  .ap-form-panel {
+    padding: 20px 16px;
+  }
+
+  .ap-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-field--full {
+    grid-column: 1;
+  }
+
+  .ap-grid {
+    grid-template-columns: 1fr;
+  }
 }

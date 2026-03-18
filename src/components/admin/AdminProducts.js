@@ -5,8 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick-theme.css";
-import "./AdminProducts.css"; 
+import "./AdminProducts.css";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -20,6 +19,7 @@ export default function AdminProducts() {
   });
   const [editingProductId, setEditingProductId] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [previewUrls, setPreviewUrls] = useState([]);
 
   const { token } = useContext(AuthContext);
 
@@ -34,6 +34,13 @@ export default function AdminProducts() {
     } catch (err) {
       console.error("Erreur lors du chargement des produits", err);
     }
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setForm({ ...form, files });
+    const urls = files.map((f) => URL.createObjectURL(f));
+    setPreviewUrls(urls);
   };
 
   const handleSave = async () => {
@@ -58,22 +65,18 @@ export default function AdminProducts() {
           headers: { Authorization: `Bearer ${token}` },
         });
         savedProduct = res.data;
-        alert("Produit mis à jour");
       } else {
         const res = await API.post("/products", productData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         savedProduct = res.data;
-        alert("Produit ajouté");
       }
 
-      // Upload des images si sélectionnées
       if (form.files.length > 0 && savedProduct?._id) {
         const formData = new FormData();
         for (let i = 0; i < form.files.length; i++) {
           formData.append("images", form.files[i]);
         }
-
         setUploading(true);
         await API.post(`/upload/${savedProduct._id}`, formData, {
           headers: {
@@ -82,18 +85,10 @@ export default function AdminProducts() {
           },
         });
         setUploading(false);
-        alert("Images uploadées avec succès");
       }
 
-      // Réinitialiser le formulaire
-      setForm({
-        name: "",
-        price: "",
-        description: "",
-        stock: "",
-        category: "",
-        files: [],
-      });
+      setForm({ name: "", price: "", description: "", stock: "", category: "", files: [] });
+      setPreviewUrls([]);
       setEditingProductId(null);
       fetchProducts();
     } catch (err) {
@@ -112,7 +107,15 @@ export default function AdminProducts() {
       category: product.category || "",
       files: [],
     });
+    setPreviewUrls([]);
     setEditingProductId(product._id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleCancel = () => {
+    setForm({ name: "", price: "", description: "", stock: "", category: "", files: [] });
+    setPreviewUrls([]);
+    setEditingProductId(null);
   };
 
   const handleDelete = async (id) => {
@@ -121,7 +124,6 @@ export default function AdminProducts() {
         await API.delete(`/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        alert("Produit supprimé");
         fetchProducts();
       } catch (err) {
         console.error(err);
@@ -133,92 +135,194 @@ export default function AdminProducts() {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: true,
   };
 
   return (
-    <div className="admin-products">
-      <h2>Gérer les Produits</h2>
+    <div className="ap-wrapper">
+      {/* ── FORM PANEL ── */}
+      <section className="ap-form-panel">
+        <h2 className="ap-form-title">
+          {editingProductId ? "✏️ Modifier le produit" : "➕ Nouveau produit"}
+        </h2>
 
-      <input
-        type="text"
-        placeholder="Nom"
-        value={form.name}
-        onChange={(e) => setForm({ ...form, name: e.target.value })}
-      />
+        <div className="ap-form-grid">
+          <div className="ap-field ap-field--full">
+            <label>Nom du produit</label>
+            <input
+              type="text"
+              placeholder="Ex : Tétine MF +3 (2X1)"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          </div>
 
-      <input
-        type="number"
-        placeholder="Prix"
-        value={form.price}
-        onChange={(e) => setForm({ ...form, price: e.target.value })}
-      />
+          <div className="ap-field">
+            <label>Prix (FCFA)</label>
+            <input
+              type="number"
+              placeholder="Ex : 15000"
+              value={form.price}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
+            />
+          </div>
 
-      <textarea
-        placeholder="Description"
-        value={form.description}
-        onChange={(e) => setForm({ ...form, description: e.target.value })}
-      />
+          <div className="ap-field">
+            <label>Stock</label>
+            <input
+              type="number"
+              placeholder="Ex : 50"
+              value={form.stock}
+              onChange={(e) => setForm({ ...form, stock: e.target.value })}
+            />
+          </div>
 
-      <input
-        type="number"
-        placeholder="Stock"
-        value={form.stock}
-        onChange={(e) => setForm({ ...form, stock: e.target.value })}
-      />
+          <div className="ap-field ap-field--full">
+            <label>Catégorie</label>
+            <input
+              type="text"
+              placeholder="Ex : Vêtements, Accessoires…"
+              value={form.category}
+              onChange={(e) => setForm({ ...form, category: e.target.value })}
+            />
+          </div>
 
-      <input
-        type="text"
-        placeholder="Catégorie"
-        value={form.category}
-        onChange={(e) => setForm({ ...form, category: e.target.value })}
-      />
+          <div className="ap-field ap-field--full">
+            <label>Description</label>
+            <textarea
+              rows={4}
+              placeholder="Décrivez le produit…"
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+            />
+          </div>
 
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) => setForm({ ...form, files: Array.from(e.target.files) })}
-      />
-
-      {uploading && <p>Envoi des images en cours...</p>}
-
-      <button onClick={handleSave}>
-        {editingProductId ? "Mettre à jour" : "Ajouter"}
-      </button>
-
-      <ul>
-        {products.map((p) => (
-          <li key={p._id}>
-            <strong>{p.name}</strong> - {p.price} FCFA
-            {p.images && p.images.length > 0 ? (
-              <div style={{ width: "200px", margin: "10px auto" }}>
-                <Slider {...sliderSettings}>
-                  {p.images.map((img, idx) => (
-                    <div key={idx}>
-                      <img
-                         src={img.startsWith("http") ? img : `${process.env.REACT_APP_API_URL}/uploads/${img}`}
-                         alt={`${p.name}-${idx}`}
-                         style={{ width: "100%", borderRadius: "8px" }}
-                      />
-                    </div>
-                  ))}
-                </Slider>
+          <div className="ap-field ap-field--full">
+            <label>Images</label>
+            <label className="ap-file-label">
+              <span>📁 Choisir des images</span>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+              />
+            </label>
+            {previewUrls.length > 0 && (
+              <div className="ap-preview-strip">
+                {previewUrls.map((url, i) => (
+                  <img key={i} src={url} alt={`preview-${i}`} className="ap-preview-thumb" />
+                ))}
               </div>
-            ) : (
-              <p>Aucune image</p>
             )}
-            <p>{p.description}</p>
-            <p>
-              Stock : {p.stock} | Catégorie : {p.category}
-            </p>
-            <button onClick={() => handleEdit(p)}>Modifier</button>
-            <button onClick={() => handleDelete(p._id)}>Supprimer</button>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+
+        {uploading && (
+          <div className="ap-uploading">
+            <span className="ap-spinner" /> Upload en cours…
+          </div>
+        )}
+
+        <div className="ap-form-actions">
+          {editingProductId && (
+            <button className="ap-btn ap-btn--ghost" onClick={handleCancel}>
+              Annuler
+            </button>
+          )}
+          <button className="ap-btn ap-btn--primary" onClick={handleSave}>
+            {editingProductId ? "Mettre à jour" : "Ajouter le produit"}
+          </button>
+        </div>
+      </section>
+
+      {/* ── PRODUCT GRID ── */}
+      <section className="ap-list-panel">
+        <h2 className="ap-list-title">
+          Produits <span className="ap-count">{products.length}</span>
+        </h2>
+
+        {products.length === 0 ? (
+          <p className="ap-empty">Aucun produit pour l'instant.</p>
+        ) : (
+          <div className="ap-grid">
+            {products.map((p) => (
+              <div key={p._id} className="ap-card">
+                {/* Image zone */}
+                <div className="ap-card-media">
+                  {p.images && p.images.length > 1 ? (
+                    <Slider {...sliderSettings}>
+                      {p.images.map((img, idx) => (
+                        <div key={idx} className="ap-slide">
+                          <img
+                            src={
+                              img.startsWith("http")
+                                ? img
+                                : `${process.env.REACT_APP_API_URL}/uploads/${img}`
+                            }
+                            alt={`${p.name}-${idx}`}
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  ) : p.images && p.images.length === 1 ? (
+                    <img
+                      src={
+                        p.images[0].startsWith("http")
+                          ? p.images[0]
+                          : `${process.env.REACT_APP_API_URL}/uploads/${p.images[0]}`
+                      }
+                      alt={p.name}
+                      className="ap-single-img"
+                    />
+                  ) : (
+                    <div className="ap-no-img">Aucune image</div>
+                  )}
+                </div>
+
+                {/* Info zone */}
+                <div className="ap-card-body">
+                  <div className="ap-card-header">
+                    <h3 className="ap-card-name">{p.name}</h3>
+                    <span className="ap-card-price">{Number(p.price).toLocaleString()} FCFA</span>
+                  </div>
+
+                  {p.description && (
+                    <p className="ap-card-desc">{p.description}</p>
+                  )}
+
+                  <div className="ap-card-meta">
+                    {p.category && (
+                      <span className="ap-badge">{p.category}</span>
+                    )}
+                    <span className="ap-stock">
+                      Stock : <strong>{p.stock ?? "—"}</strong>
+                    </span>
+                  </div>
+
+                  <div className="ap-card-actions">
+                    <button
+                      className="ap-btn ap-btn--edit"
+                      onClick={() => handleEdit(p)}
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      className="ap-btn ap-btn--delete"
+                      onClick={() => handleDelete(p._id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

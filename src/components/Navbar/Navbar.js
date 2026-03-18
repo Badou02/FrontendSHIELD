@@ -110,35 +110,38 @@ const handleAuth = () => {
             <ul className="sub-menu">
               
               <li>Silicone</li>
-              <li>Caoutchouc</li>
+              <li></li>
             </ul>
           </li>
           <li className="category-item">
             Sucettes
             <ul className="sub-menu">
-              <li>Chauffe-biberons</li>
-              <li>Goupillons</li>
+              <li>x</li>
+              <li>x</li>
             </ul>
           </li>
           <li className="category-item">
             Jouets de dentition
             <ul className="sub-menu">
-              <li>Chauffe-biberons</li>
-              <li>Goupillons</li>
+              <li>x</li>
+              <li>x</li>
             </ul>
           </li>
           <li className="category-item">
             Toiletries
             <ul className="sub-menu">
-              <li>Chauffe-biberons</li>
-              <li>Goupillons</li>
+              <li>Lotion</li>
+              <li>Huile</li>
+              <li>Vasline</li>
+              <li>shampoing</li>
+              <li>Poudre</li>
             </ul>
           </li>
           <li className="category-item">
             Couches & Lingettes
             <ul className="sub-menu">
-              <li>Chauffe-biberons</li>
-              <li>Goupillons</li>
+              <li>Couches</li>
+              <li>Lingettes</li>
             </ul>
           </li>
         </ul>
