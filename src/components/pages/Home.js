@@ -22,7 +22,7 @@ const Home = ({ addToCart }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await API.get('/products?limit=12');
+        const res = await API.get('/products?limit=15');
         setProducts(res.data);
       } catch (err) {
         console.error("Erreur lors du chargement des produits", err);
