@@ -123,14 +123,13 @@ const handleAuth = () => {
           <li className="category-item">
             Jouets de dentition
             <ul className="sub-menu">
-              <li>x</li>
-              <li>x</li>
+              <li>Jouets de dentition</li>
             </ul>
           </li>
           <li className="category-item">
             Toiletries
             <ul className="sub-menu">
-              <li>Lotion</li>
+            <Link to='/allproducts'><li>Lotion</li></Link>  
               <li>Huile</li>
               <li>Vasline</li>
               <li>shampoing</li>

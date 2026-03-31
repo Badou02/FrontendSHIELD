@@ -208,15 +208,18 @@ img, video {
 
 /* ── Vidéo présentation ── */
 .PresentationProduits {
+  Display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: var(--max-width);
   margin: 0 auto 3rem;
   padding: 0 1rem;
 }
 
 .PresentationProduits video {
-  width: 100%;
-  height: auto;
-  max-height: 520px;
+  width: 80%;
+  height: 500px;
+  max-height: 500px;
   border-radius: var(--radius);
   object-fit: cover;
 }

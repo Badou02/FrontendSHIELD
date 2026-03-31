@@ -98,7 +98,7 @@ const Home = ({ addToCart }) => {
 
       {/* ── Vidéo présentation ── */}
       <div className="PresentationProduits">
-        <video src={videoOne} autoPlay muted loop playsInline />
+        <video src={videoOne} autoPlay muted loop playsInline controls/>
       </div>
 
       <Localisation />

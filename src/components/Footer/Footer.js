@@ -11,20 +11,21 @@ const Footer = () => {
         {/* Section Contact */}
         <div className="footer-section">
           <h4>Contact</h4>
-          <p><FaPhone /> +221 77 639 07 50 </p>
-          <p><FaPhone /> +221 77 116 70 04</p>
-          <p><FaPhone /> +221 77 633 01 63</p>
+          <p><FaPhone /> +221 78 910 14 14</p>
+          <p><FaPhone /> +221 77 863 51 53</p>
           
           <p><FaEnvelope /> shieldsenegal484@gmail.com</p>
+          <p><FaEnvelope /> contact@shieldbaby.sn</p>
+
         </div>
 
         {/* Section Réseaux Sociaux */}
         <div className="footer-section">
           <h4>Suivez-nous</h4>
           <div className="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61577495665671" target='blak'><FaFacebook /></a>
+            <a href="https://www.facebook.com/share/1GB7fSnTXB/?mibextid=wwXIfr" target='blak'><FaFacebook /></a>
             <a href="https://www.instagram.com/shieldbabysenegal?igsh=MW82NWtid2JjZm9oYw%3D%3D&utm_source=qr" target='blak'><FaInstagram /></a>
-            <a href="#Twitter"><FaTiktok /></a>
+            <a href="https://www.tiktok.com/@shieldbaby_sn" target='blak'><FaTiktok /></a>
           </div>
         </div>
 
@@ -41,7 +42,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>© 2025 - Shield Boutique. Tous droits réservés.</p>
+        <p>© 2026 - ShieldBaby SN. Tous droits réservés.</p>
       </div>
     </footer>
   );
