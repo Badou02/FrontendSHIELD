@@ -3,10 +3,17 @@ import { Link } from "react-router-dom";
 import StarRating from "../RatingStar/RatingStar";
 import "./ProductCard.css";
 
+// ✅ Transformation Cloudinary automatique
+const optimizeCloudinaryUrl = (url, width = 400) => {
+  if (!url || !url.includes("cloudinary.com")) return url;
+  // Injecte f_auto,q_auto,w_{width} dans l'URL
+  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width},c_fill/`);
+};
+
 const getImageUrl = (img) => {
   const url = typeof img === "string" ? img : img?.url;
   if (!url) return "/placeholder.png";
-  if (url.startsWith("http")) return url;
+  if (url.startsWith("http")) return optimizeCloudinaryUrl(url, 400);
   const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   return `${baseURL}${url}`;
 };
@@ -26,12 +33,15 @@ export default function ProductCard({ product, onRate, onAddToCart, addToCart })
   return (
     <div className="product-card">
       <Link to={`/product/${product._id}`} className="product-link">
-        {/* ✅ Image simple — SANS Slick Slider */}
         <div className="product-card-media">
           <img
             src={mainImage}
             alt={product.name}
             className="product-image"
+            loading="lazy"          // ✅ Lazy loading natif
+            decoding="async"        // ✅ Décodage non bloquant
+            width={400}             // ✅ Évite le layout shift
+            height={400}
             onError={(e) => { e.target.src = "/placeholder.png"; }}
           />
           {imageList.length > 1 && (

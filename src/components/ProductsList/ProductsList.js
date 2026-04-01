@@ -1,11 +1,20 @@
-// src/components/ProductList/ProductList.js
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
-import API from '../../api'; // Importez votre instance Axios
+import API from '../../api';
 import './ProductList.css';
 
-const ProductList = ({  onAddToCart, onRate }) => {
-  const [products, setProducts] = useState([]); // Gérer les produits via l'état
+// Skeleton affiché pendant le chargement
+const ProductSkeleton = () => (
+  <div className="product-card skeleton">
+    <div className="skeleton-img" />
+    <div className="skeleton-line" />
+    <div className="skeleton-line short" />
+  </div>
+);
+
+const ProductList = ({ onAddToCart, onRate }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);   // ✅ État de chargement
   const scrollerRef = useRef(null);
   const intervalRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -13,17 +22,16 @@ const ProductList = ({  onAddToCart, onRate }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await API.get('/products'); // Requête GET vers votre API produits
+        const res = await API.get('/products');
         setProducts(res.data);
       } catch (err) {
         console.error("Erreur lors de la récupération des produits:", err);
-        // Gérer l'erreur, par exemple afficher un message à l'utilisateur
+      } finally {
+        setLoading(false);  // ✅ Toujours désactiver le loader
       }
     };
     fetchProducts();
-    // ... (logique du setInterval si vous la conservez)
-  }, []); // Exécuter une seule fois au montage
-
+  }, []);
 
   useEffect(() => {
     const startAutoScroll = () => {
@@ -38,30 +46,30 @@ const ProductList = ({  onAddToCart, onRate }) => {
         }
       }, 20);
     };
-
     startAutoScroll();
     return () => clearInterval(intervalRef.current);
   }, [isHovered]);
 
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-
   return (
-     <div className="product-list">
+    <div className="product-list">
       <div
         className="product-scroller"
         ref={scrollerRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {products.map(product => ( // Maintenant 'products' vient de l'état
-          <ProductCard
-            key={product._id} // Utilisez product._id
-            product={product}
-            onAddToCart={onAddToCart}
-            onRate={onRate}
-          />
-        ))}
+        {loading
+          // ✅ Affiche 6 skeletons pendant le chargement
+          ? Array.from({ length: 6 }).map((_, i) => <ProductSkeleton key={i} />)
+          : products.map(product => (
+              <ProductCard
+                key={product._id}
+                product={product}
+                onAddToCart={onAddToCart}
+                onRate={onRate}
+              />
+            ))
+        }
       </div>
     </div>
   );
