@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import StarRating from "../RatingStar/RatingStar";
 import "./ProductCard.css";
 
-// ✅ Transformation Cloudinary automatique
 const optimizeCloudinaryUrl = (url, width = 400) => {
   if (!url || !url.includes("cloudinary.com")) return url;
-  // Injecte f_auto,q_auto,w_{width} dans l'URL
-  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width},c_fill/`);
+  if (url.includes("/upload/f_auto")) return url;
+  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width},c_limit/`);
 };
 
 const getImageUrl = (img) => {
@@ -30,6 +29,8 @@ export default function ProductCard({ product, onRate, onAddToCart, addToCart })
 
   const mainImage = getImageUrl(imageList[0]);
 
+  
+
   return (
     <div className="product-card">
       <Link to={`/product/${product._id}`} className="product-link">
@@ -38,9 +39,9 @@ export default function ProductCard({ product, onRate, onAddToCart, addToCart })
             src={mainImage}
             alt={product.name}
             className="product-image"
-            loading="lazy"          // ✅ Lazy loading natif
-            decoding="async"        // ✅ Décodage non bloquant
-            width={400}             // ✅ Évite le layout shift
+            loading="lazy"
+            decoding="async"
+            width={400}
             height={400}
             onError={(e) => { e.target.src = "/placeholder.png"; }}
           />
